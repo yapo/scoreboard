@@ -24,7 +24,8 @@ class example(object):
 			while self.looping:
 				try:
 					c = sys.stdin.read(1)
-					print "Got character", repr(c)
+					c = repr(c)
+					print "Got character {}" 
 					if c in self.options:
 						self.options[c]()
 				except IOError: pass

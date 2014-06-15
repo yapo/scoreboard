@@ -1,18 +1,24 @@
-import termios, fcntl, sys, os
+import pygame, termios, fcntl, sys, os
 
 class example(object):
 
 	def __init__(self):
-		self.options = {'q': quit}
+		self.options = {'q': self.quit, 'p': self.play}
 		self.looping = True
-		print "constructor"
 
 	def quit(self):
 		print "quiting"
 		self.looping = False
 
+	def play(self):
+		print "play"
+		file = 'sounds/winner.mp3'
+		pygame.init()
+		pygame.mixer.init()
+		pygame.mixer.music.load(file)
+		pygame.mixer.music.play()
+
 	def run(self):
-		print "starting"
 		fd = sys.stdin.fileno()
 		oldterm = termios.tcgetattr(fd)
 		newattr = termios.tcgetattr(fd)

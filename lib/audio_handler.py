@@ -2,21 +2,26 @@ import pygame
 
 class audio_handler(object):
 
-	def init(self):
+	def __init__(self, config):
+		self.config = config
+		self.audios = []
+		self.channels = []
 		pygame.mixer.pre_init(44100, -16, 2, 2048)
 		pygame.init()
-		pygame.mixer.music.set_volume(0.1)
+		pygame.mixer.music.set_volume(self.config.default_volume)
 		self.load_audio()
+		pygame.mixer.music.load('sounds/crowd.ogg')
 		pygame.mixer.music.play(-1)
 		self.is_paused = False
 
 	def load_audio(self):
-		for audio in config.audio:
-			self.audios.append({audio: pygame.mixer.Sound(config.audio[audio])})
-		for channel in config.audio_channel:
-			self.channels.append({channel: pygame.mixer.Channel(config.audio_channel[channel])})
+		for audio in self.config.audio:
+			self.audios.append({audio: pygame.mixer.Sound(self.config.audio[audio])})
+		for channel in self.config.audio_channel:
+			self.channels.append({channel: pygame.mixer.Channel(self.config.audio_channel[channel])})
 
 	def terminate(self):
+		print "terminating audio"
 		pygame.mixer.quit()
 
 	def play(self, audio_key):

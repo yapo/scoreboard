@@ -9,8 +9,9 @@ class scoreboard():
 		self.button_handler = button_handler.button_handler(self.config)
 		self.looping = True
 		self.options =	{ 'q': self.quit }
-		self.button_handler.add_handler('a', self.a_button_on_click)
-		self.button_handler.add_handler('b', self.b_button_on_click)
+		self.button_handler.add_handler('a', self.a_event_handler)
+		self.button_handler.add_handler('b', self.b_event_handler)
+		self.button_handler.add_handler('c', self.c_event_handler)
 
 	def terminate(self):
 		self.audio_handler.terminate()
@@ -20,14 +21,14 @@ class scoreboard():
 		print "quiting"
 		self.looping = False
 
-	def a_button_on_click(self):
-		print 'a button'
+	def a_event_handler(self):
+		print 'goal player 1'
 
-	def b_button_on_click(self):
-		print 'b button'
+	def b_event_handler(self):
+		print 'goal player 2'
 
-	def ab_button_on_click(self):
-		print 'a+b button'
+	def c_event_handler(self):
+		print 'restart game'
 
 	def run(self):
 		print "running"

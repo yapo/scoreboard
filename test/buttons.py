@@ -1,18 +1,18 @@
 import time
 import RPi.GPIO as GPIO
 
+last_button = None
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-def my_callback(channel):
-    print "falling edge detected on 17"
+def common_callback(channel):
+	global last_button
+	button = 'A' if channel == 17 else 'B'
+	print "callback on button {}".format(button)
 
-def my_callback2(channel):
-    print "falling edge detected on 23"
-
-GPIO.add_event_detect(17, GPIO.FALLING, callback=my_callback, bouncetime=300)
-GPIO.add_event_detect(23, GPIO.FALLING, callback=my_callback2, bouncetime=300)
+GPIO.add_event_detect(17, GPIO.FALLING, callback=common_callback, bouncetime=300)
+GPIO.add_event_detect(23, GPIO.FALLING, callback=common_callback, bouncetime=300)
 
 try:
     print "sleeping"

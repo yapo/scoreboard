@@ -1,7 +1,8 @@
 class config(object):
 	
-	self.keyboard_options = { 'q': quit }
-	self.audio_channel = {
+	def __init__(self):
+		self.keyboard_options = { 'q': quit }
+		self.audio_channel = {
 			"crowd": pygame.mixer.Channel(1),
 			"ding": pygame.mixer.Channel(2),
 			"firstBlood": pygame.mixer.Channel(3),
@@ -29,7 +30,7 @@ class config(object):
 			"youllNeverWin": pygame.mixer.Channel(3),
 			"victory": pygame.mixer.Channel(3)
 		}
-	self.audio = {
+		self.audio = {
 			"ding": pygame.mixer.Sound('sounds/ding.ogg'),
 			"firstBlood": pygame.mixer.Sound('sounds/1-first-blood.ogg'),
 			"dominating": pygame.mixer.Sound('sounds/2-dominating.ogg'),

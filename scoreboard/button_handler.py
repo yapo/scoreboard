@@ -27,14 +27,14 @@ class button_handler(object):
 		if button == 'a':
 			self.a_button_callbacks.append(handler);
 			return len(self.a_button_callbacks) - 1
-		else if button == 'b':
+		elif button == 'b':
 			self.b_button_callbacks.append(handler);
 			return len(self.b_button_callbacks) - 1
 	
-	def remove_handler(self, button, index)
+	def remove_handler(self, button, index):
 		if button == 'a':
 			self.a_button_callbacks[index] = None
-		else if button == 'b':
+		elif button == 'b':
 			self.b_button_callbacks[index] = None
 		
 

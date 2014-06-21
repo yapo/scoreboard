@@ -1,4 +1,4 @@
-import pygame, config
+import pygame
 
 class audio_handler(object):
 
@@ -12,9 +12,9 @@ class audio_handler(object):
 
 	def load_audio(self):
 		for audio in config.audio:
-			self.audios.append(audio: pygame.mixer.Sound(config.audio[audio]))
+			self.audios.append({audio: pygame.mixer.Sound(config.audio[audio])})
 		for channel in config.audio_channel:
-			self.channels.append(channel: pygame.mixer.Channel(config.audio_channel[channel]))
+			self.channels.append({channel: pygame.mixer.Channel(config.audio_channel[channel])})
 
 	def terminate(self):
 		pygame.mixer.quit()

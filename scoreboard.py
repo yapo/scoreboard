@@ -1,5 +1,7 @@
 import pygame, termios, fcntl, sys, os, random
 from lib import config, audio_handler, button_handler, game_controller
+from espeak import espeak
+from threading import Timer
 
 class scoreboard():
 	def __init__(self):
@@ -26,6 +28,7 @@ class scoreboard():
 		self.gc.add_handler('danger_zone', self.on_danger_zone)
 		self.gc.add_handler('first_blood', self.on_first_blood)
 		self.gc.add_handler('combo_breaker', self.on_combo_breaker)
+		self.score_player = None
 
 	def terminate(self):
 		self.ac.terminate()
@@ -50,6 +53,7 @@ class scoreboard():
 		print 'goal player {}'.format(label)
 		self.ac.play("ding")
 		self.gc.score(label)
+		self.play_score()
 		self.play_combo()
 
 	def on_game_victory(self, winner, loser):
@@ -75,6 +79,18 @@ class scoreboard():
 		option = random.randrange(0,3)
 		print 'humiliation: {}'.format(option)
 		self.ac.play(options[option], delay = 5.0)
+
+	def play_score(self):
+		self.score_player = Timer(2.1, self.play_score_delayed)
+		self.score_player.start()
+
+	def play_score_delayed(self):
+		score1 = self.gc.player1.goal_counter
+		score2 = self.gc.player2.goal_counter
+		if score1 != score2:
+			espeak.synth('{} to {}!'.format(score1, score2))
+		else:
+			espeak.synth('draw!')
 
 	def play_combo(self):
 		player = self.gc.get_scored_player()

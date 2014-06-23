@@ -1,5 +1,5 @@
 import pygame, termios, fcntl, sys, os
-from lib import config, audio_handler, button_handler
+from lib import config, audio_handler, button_handler, game_controller
 
 class scoreboard():
 	def __init__(self):
@@ -12,6 +12,7 @@ class scoreboard():
 		self.button_handler.add_handler('a', self.a_event_handler)
 		self.button_handler.add_handler('b', self.b_event_handler)
 		self.button_handler.add_handler('c', self.c_event_handler)
+		self.gc = game_controller.game_controller()
 
 	def terminate(self):
 		self.audio_handler.terminate()
@@ -23,12 +24,15 @@ class scoreboard():
 
 	def a_event_handler(self):
 		print 'goal player 1'
+		self.gc.score('white')
 
 	def b_event_handler(self):
 		print 'goal player 2'
+		self.gc.score('black')
 
 	def c_event_handler(self):
-		print 'restart game'
+		print 'start game'
+		self.gc.reset()
 
 	def run(self):
 		print "running"

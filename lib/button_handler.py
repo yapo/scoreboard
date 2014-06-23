@@ -14,7 +14,7 @@ class button_handler(object):
 		self.b_callbacks = []
 		self.c_callbacks = []
 		self.last_channel = None
-		self.event_delta = datetime.timedelta(seconds = 1)
+		self.event_delta = datetime.timedelta(milliseconds = 500)
 		self.last_pressed_event_time = datetime.datetime.now()
 
 	def execute_callbacks(self, callbacks):
@@ -25,13 +25,13 @@ class button_handler(object):
 	def button_callback(self, channel):
 		now = datetime.datetime.now()
 		delta = now - self.last_pressed_event_time
+		self.last_pressed_event_time = now
 		if delta < self.event_delta:
 			if self.last_channel <> channel:
 				self.execute_callbacks(self.c_callbacks)
 		else:
 			self.execute_callbacks(self.a_callbacks if channel == 17 else self.b_callbacks)
 		self.last_channel = channel
-		self.last_pressed_event_time = now
 
 	def add_handler(self, button, handler = None):
 		if button == 'a':

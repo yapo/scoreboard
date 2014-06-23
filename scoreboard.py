@@ -23,7 +23,7 @@ class scoreboard():
 				10: 'monster' }
 		self.bc.add_handler('a', self.button_a_onclick)
 		self.bc.add_handler('b', self.button_b_onclick)
-		self.bc.add_handler('c', self.button_ab_onclick)
+		self.bc.add_handler('c', self.button_c_onclick)
 		self.gc.add_handler('victory', self.on_game_victory)
 		self.gc.add_handler('danger_zone', self.on_danger_zone)
 		self.gc.add_handler('first_blood', self.on_first_blood)
@@ -44,29 +44,34 @@ class scoreboard():
 	def button_b_onclick(self):
 		self.score('black')
 
-	def button_ab_onclick(self):
+	def button_c_onclick(self):
 		print 'start game'
 		self.ac.stop()
+		self.ac.play("crowd")
+		if self.score_player is not None:
+			self.score_player.cancel()
 		self.gc.reset()
 
 	def score(self, label):
 		print 'goal player {}'.format(label)
 		self.ac.play("ding")
-		self.gc.score(label)
 		self.play_score()
+		self.gc.score(label)
 		self.play_combo()
 
 	def on_game_victory(self, winner, loser):
 		self.ac.play("victory")
 		self.ac.play("winner", 2.0)
 		self.ac.play("crowd")
+		if self.score_player is not None:
+			self.score_player.cancel()
 		if loser.goal_counter < 5:
 			self.play_random_humilliation()
 		print "on victory, player {} wins".format(winner.label)
 
 	def on_danger_zone(self, winner, loser):
 		self.ac.play("danger")
-		self.ac.play("finishHim", delay = 2.5)
+		self.ac.play("finishHim", delay = 3.5)
 
 	def on_first_blood(self, player, other):
 		self.ac.play("firstBlood", 0.5)
@@ -81,6 +86,8 @@ class scoreboard():
 		self.ac.play(options[option], delay = 5.0)
 
 	def play_score(self):
+		if self.score_player is not None:
+			self.score_player.cancel()
 		self.score_player = Timer(2.1, self.play_score_delayed)
 		self.score_player.start()
 
@@ -88,9 +95,12 @@ class scoreboard():
 		score1 = self.gc.player1.goal_counter
 		score2 = self.gc.player2.goal_counter
 		if score1 != score2:
-			espeak.synth('{} to {}!'.format(score1, score2))
+			self.synth('{} a {}!'.format(score1, score2))
 		else:
-			espeak.synth('draw!')
+			self.synth('empate, a {}!'.format(score1))
+
+	def synth(self, message):
+		os.system('espeak -ves+m5 "{}" --stdout -a 500 -s 140 -p 80 | aplay'.format(message))
 
 	def play_combo(self):
 		player = self.gc.get_scored_player()

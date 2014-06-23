@@ -1,14 +1,15 @@
 class config(object):
 	
 	def __init__(self):
-		self.default_volume = 0.1
+		self.default_volume = 0.5
+		self.max_goals = 10 
 		self.audio_channel = {
-			"crowd": 1,
+			"crowd": 2,
 			"ding": 2,
-			"firstBlood": 3,
-			"dominating": 3,
-			"unstoppable": 3,
-			"wickedSick": 3,
+			"firstBlood": 4,
+			"dominating": 4,
+			"unstoppable": 4,
+			"wickedSick": 4,
 			"triple": 4,
 			"super": 4,
 			"hyper": 4,
@@ -17,18 +18,18 @@ class config(object):
 			"awesome": 4,
 			"blaster": 4,
 			"monster": 4,
-			"comboBreaker": 3,
-			"excellent": 3,
-			"finishHim": 3,
-			"humiliation": 3,
-			"superb": 3,
-			"supremeVictory": 3,
-			"thatWasPathetic": 3,
-			"danger": 2,
+			"comboBreaker": 4,
+			"excellent": 4,
+			"finishHim": 4,
+			"humiliation": 5,
+			"superb": 4,
+			"supremeVictory": 5,
+			"thatWasPathetic": 5,
+			"danger": 5,
 			"wellDone": 3,
 			"winner": 3,
-			"youllNeverWin": 3,
-			"victory": 3
+			"youllNeverWin": 5,
+			"victory": 4
 		}
 		self.audio = {
 			"ding": 'sounds/ding.ogg',

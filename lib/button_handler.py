@@ -26,12 +26,13 @@ class button_handler(object):
 		now = datetime.datetime.now()
 		delta = now - self.last_pressed_event_time
 		self.last_pressed_event_time = now
+		last_channel = self.last_channel
+		self.last_channel = channel
 		if delta < self.event_delta:
-			if self.last_channel <> channel:
+			if last_channel <> channel:
 				self.execute_callbacks(self.c_callbacks)
 		else:
 			self.execute_callbacks(self.a_callbacks if channel == 17 else self.b_callbacks)
-		self.last_channel = channel
 
 	def add_handler(self, button, handler = None):
 		if button == 'a':

@@ -39,20 +39,21 @@ class scoreboard():
 		self.looping = False
 
 	def button_a_onclick(self):
-		self.score('white')
+		self.on_score('white')
 
 	def button_b_onclick(self):
-		self.score('black')
+		self.on_score('black')
 
 	def button_c_onclick(self):
 		print 'start game'
+		self.gc.reset()
 		self.ac.stop()
 		self.ac.play("crowd")
 		if self.score_player is not None:
 			self.score_player.cancel()
 		self.gc.reset()
 
-	def score(self, label):
+	def on_score(self, label):
 		print 'goal player {}'.format(label)
 		self.ac.play("ding")
 		self.play_score()
@@ -88,7 +89,7 @@ class scoreboard():
 	def play_score(self):
 		if self.score_player is not None:
 			self.score_player.cancel()
-		self.score_player = Timer(2.1, self.play_score_delayed)
+		self.score_player = Timer(2.5, self.play_score_delayed)
 		self.score_player.start()
 
 	def play_score_delayed(self):

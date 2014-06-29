@@ -5,17 +5,20 @@ class button_handler(object):
 
 	def __init__(self, config):
 		self.config = config
+		self.a_pin = 18
+		self.b_pin = 23
+		self.c_pin = 24
 		GPIO.setmode(GPIO.BCM)
-		GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(17, GPIO.FALLING, callback=self.button_callback, bouncetime=300)
-		GPIO.add_event_detect(23, GPIO.FALLING, callback=self.button_callback, bouncetime=300)
-		GPIO.add_event_detect(24, GPIO.FALLING, callback=self.button_callback, bouncetime=300)
+		GPIO.setup(self.a_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.b_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.c_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.add_event_detect(self.a_pin, GPIO.FALLING, callback=self.button_callback, bouncetime=300)
+		GPIO.add_event_detect(self.b_pin, GPIO.FALLING, callback=self.button_callback, bouncetime=300)
+		GPIO.add_event_detect(self.c_pin, GPIO.FALLING, callback=self.button_callback, bouncetime=300)
 		self.a_callbacks = []
 		self.b_callbacks = []
 		self.c_callbacks = []
-		self.callbacks_by_channel = { 17: self.a_callbacks, 23: self.b_callbacks, 24: self.c_callbacks }
+		self.callbacks_by_channel = { self.a_pin: self.a_callbacks, self.b_pin: self.b_callbacks, self.c_pin: self.c_callbacks }
 		self.event_delta = datetime.timedelta(milliseconds = 500)
 		self.last_pressed_event_time = datetime.datetime.now()
 

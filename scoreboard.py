@@ -1,7 +1,11 @@
-import pygame, termios, fcntl, sys, os, random
+import pygame, termios, fcntl, sys, os, random, signal
 from lib import config, audio_handler, button_handler, game_controller
 from espeak import espeak
 from threading import Timer
+
+def signal_handler(signal, frame):
+	print "signal handler"
+	controller.looping = False
 
 class scoreboard():
 	def __init__(self):
@@ -114,13 +118,6 @@ class scoreboard():
 
 	def run(self):
 		print "running"
-		fd = sys.stdin.fileno()
-		oldterm = termios.tcgetattr(fd)
-		newattr = termios.tcgetattr(fd)
-		newattr[3] = newattr[3] & ~termios.ICANON & ~termios.ECHO
-		termios.tcsetattr(fd, termios.TCSANOW, newattr)
-		oldflags = fcntl.fcntl(fd, fcntl.F_GETFL)
-		fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK)
 		try:
 			while self.looping:
 				try:
@@ -130,10 +127,9 @@ class scoreboard():
 				except IOError: pass
 		finally:
 			self.terminate()
-			termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
-			fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
 
 
-scoreboard().run()
-
+signal.signal(signal.SIGTERM, signal_handler)
+controller = scoreboard()
+controller.run()
 		

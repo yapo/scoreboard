@@ -15,7 +15,10 @@ class scoreboard():
 		self.bc = button_handler.button_handler(self.config)
 		self.gc = game_controller.game_controller(self.config)
 		self.looping = True
-		self.keyboard_handlers = { 'q': self.quit }
+		self.keyboard_handlers = {	'q': self.quit,
+						'a': self.button_a_onclick,
+						'b': self.button_b_onclick,
+						'c': self.button_c_onclick  }
 		self.combos = {	2: 'dominating',
 				3: 'triple',
 				4: 'super',
@@ -62,7 +65,14 @@ class scoreboard():
 		self.ac.play("ding")
 		self.play_score()
 		self.gc.score(label)
-		self.play_combo()
+		score1 = self.gc.player1.goal_counter
+		score2 = self.gc.player2.goal_counter
+		combo1 = self.gc.player1.combo_counter
+		combo2 = self.gc.player2.combo_counter
+		if (combo1 < 2 and combo2 < 2) and (score1 + score2 > 1):
+			self.play_tano()
+		else:
+			self.play_combo()
 
 	def on_game_victory(self, winner, loser):
 		self.ac.play("victory")
@@ -85,8 +95,12 @@ class scoreboard():
 		self.ac.play("comboBreaker")
 
 	def play_random_humilliation(self):
-		options = {0: 'humiliation', 1:'youllNeverWin', 2:'thatWasPathetic', 3:'supremeVictory'}
-		option = random.randrange(0,3)
+		options = {	0: 'humiliation',
+				1:'youllNeverWin',
+				2:'thatWasPathetic',
+				3:'supremeVictory',
+				4:'tano'	 }
+		option = random.randrange(0,4)
 		print 'humiliation: {}'.format(option)
 		self.ac.play(options[option], delay = 5.0)
 
@@ -116,6 +130,22 @@ class scoreboard():
 				combo = 'wickedSick'
 			self.ac.play(combo, 0.6)
 
+	def play_tano(self):
+		options = {	1:'tano01',
+				2:'tano02',
+				3:'tano03',
+				4:'tano04',
+				5:'tano05',
+				6:'tano06',
+				7:'tano07',
+				8:'tano08',
+				9:'tano09',
+				10:'tano10'	 }
+		option = random.randrange(1,9)
+		print 'humiliation: {}'.format(option)
+		self.ac.play(options[option])
+		
+
 	def run(self):
 		print "running"
 		try:
@@ -132,4 +162,4 @@ class scoreboard():
 signal.signal(signal.SIGTERM, signal_handler)
 controller = scoreboard()
 controller.run()
-		
+

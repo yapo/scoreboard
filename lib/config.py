@@ -29,7 +29,18 @@ class config(object):
 			"wellDone": 3,
 			"winner": 3,
 			"youllNeverWin": 5,
-			"victory": 4
+			"victory": 4,
+			"tano01": 4,
+			"tano02": 4,
+			"tano03": 4,
+			"tano04": 4,
+			"tano05": 4,
+			"tano06": 4,
+			"tano07": 4,
+			"tano08": 4,
+			"tano09": 4,
+			"tano10": 4,
+			"tano": 4
 		}
 		self.audio = {
 			"ding": 'sounds/ding.ogg',
@@ -57,5 +68,16 @@ class config(object):
 			"wellDone": 'sounds/well-done.ogg',
 			"winner": 'sounds/winner.ogg',
 			"youllNeverWin": 'sounds/youll-never-win.ogg',
-			"victory": 'sounds/victory.ogg'	
+			"victory": 'sounds/victory.ogg',
+			"tano01": 'sounds/tano/01.wav.ogg',
+			"tano02": 'sounds/tano/02.wav.ogg',
+			"tano03": 'sounds/tano/03.wav.ogg',
+			"tano04": 'sounds/tano/04.wav.ogg',
+			"tano05": 'sounds/tano/05.wav.ogg',
+			"tano06": 'sounds/tano/06.wav.ogg',
+			"tano07": 'sounds/tano/07.wav.ogg',
+			"tano08": 'sounds/tano/08.wav.ogg',
+			"tano09": 'sounds/tano/09.wav.ogg',
+			"tano10": 'sounds/tano/10.wav.ogg',
+			"tano": 'sounds/tano/estamos en la b.wav.ogg'
 		}

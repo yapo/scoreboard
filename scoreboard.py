@@ -89,10 +89,10 @@ class scoreboard():
 		self.ac.play("finishHim", delay = 3.5)
 
 	def on_first_blood(self, player, other):
-		self.ac.play("firstBlood", 0.5)
+		self.ac.play("firstBlood", 0.2)
 
 	def on_combo_breaker(self, player, other):
-		self.ac.play("comboBreaker")
+		self.ac.play("comboBreaker", 0.2)
 
 	def play_random_humilliation(self):
 		options = {	0: 'humiliation',
@@ -149,6 +149,7 @@ class scoreboard():
 	def run(self):
 		print "running"
 		try:
+			self.button_c_onclick()
 			while self.looping:
 				try:
 					c = sys.stdin.read(1)

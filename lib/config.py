@@ -1,7 +1,7 @@
 class config(object):
 	
 	def __init__(self):
-		self.default_volume = 1.0
+		self.default_volume = 1.5
 		self.max_goals = 10 
 		self.audio_channel = {
 			"crowd": 2,
